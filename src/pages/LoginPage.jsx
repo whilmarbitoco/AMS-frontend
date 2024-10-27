@@ -1,5 +1,5 @@
 import { useApiUrl, useUserContext } from "../context/userContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
@@ -12,8 +12,6 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const storeToken = (token) => localStorage.setItem("token", token);
-
   const handleLogin = (e) => {
     e.preventDefault();
     setUser({
@@ -22,8 +20,7 @@ const LoginPage = () => {
       password,
     });
 
-    storeToken("2345tyhnbgfer3");
-
+    localStorage.setItem("token", "hello WOrld");
     navigate("/dashboard");
   };
 
