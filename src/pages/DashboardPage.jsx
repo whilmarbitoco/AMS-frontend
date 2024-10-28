@@ -1,11 +1,12 @@
-import { useAuth } from "../provider/AuthProvider";
+import { userStore } from "../store/userStore";
+import { useAtom } from "jotai";
 
 const DashboardPage = () => {
-  const [token, setToken] = useAuth();
+  const [user, setUser] = useAtom(userStore);
 
   return (
     <div>
-      <h1>token is: {token}</h1>
+      <h1>Hello {user.name}</h1>
     </div>
   );
 };
