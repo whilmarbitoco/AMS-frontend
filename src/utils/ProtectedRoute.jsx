@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Outlet, Navigate, useNavigate } from "react-router-dom";
-import { useUserContext } from "../context/userContext";
+import { Outlet, Navigate } from "react-router-dom";
+import { useAuth } from "../provider/AuthProvider";
+import { useEffect } from "react";
 
 const ProtectedRoute = () => {
-  const [user, setUser] = useUserContext();
-  const [login, setLogin] = useState(false);
+  const [token, setToken] = useAuth();
 
-  return user ? <Outlet /> : <Navigate to="/login" />;
+  useEffect(() => {
+    console.log("Token from auth: " + token);
+  });
+
+  return token ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;

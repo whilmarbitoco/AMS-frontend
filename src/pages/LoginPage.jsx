@@ -1,12 +1,10 @@
-import { useApiUrl, useUserContext } from "../context/userContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../provider/AuthProvider";
 
 const LoginPage = () => {
-  const [user, setUser] = useUserContext();
-  const apiUrl = useApiUrl();
-
   const navigate = useNavigate();
+  const [token, setToken] = useAuth();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -14,13 +12,7 @@ const LoginPage = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    setUser({
-      name,
-      email,
-      password,
-    });
-
-    localStorage.setItem("token", "hello WOrld");
+    setToken("Token from login");
     navigate("/dashboard");
   };
 
@@ -34,11 +26,6 @@ const LoginPage = () => {
           type="text"
           placeholder="Enter Name"
           onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="Enter Email"
-          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"

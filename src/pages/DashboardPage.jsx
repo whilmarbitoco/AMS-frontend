@@ -1,10 +1,11 @@
-import { useUserContext } from "../context/userContext";
+import { useAuth } from "../provider/AuthProvider";
 
 const DashboardPage = () => {
-  const [user, setUser] = useUserContext();
+  const [token, setToken] = useAuth();
+
   return (
     <div>
-      <h1>Hello {user.name}</h1>
+      <h1>token is: {token}</h1>
     </div>
   );
 };
