@@ -11,10 +11,14 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route element={<ProtectedRoute />}>
+          <Route element={<ProtectedRoute userType="teacher" />}>
             <Route element={<DashboardPage />} path="/dashboard" />
           </Route>
-          <Route element={<AdminDashboardPage />} path="/admin/dashboard" />
+
+          <Route element={<ProtectedRoute userType="admin" />}>
+            <Route element={<AdminDashboardPage />} path="/admin/dashboard" />
+          </Route>
+
           <Route element={<LoginPage />} path="/login" />
           <Route element={<SigninPage />} path="/signin" />
         </Routes>

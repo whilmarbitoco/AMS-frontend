@@ -4,24 +4,25 @@ import { useEffect } from "react";
 import { userStore } from "../store/userStore";
 import { useAtom } from "jotai";
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({ userType }) => {
   const [token, setToken] = useAuth();
   const [user, setUser] = useAtom(userStore);
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("whatt: " + user.username);
-
     if (token && Object.keys(user).length === 0) {
       setUser({
         username: "John Auth",
         email: "john@doe.com",
+        type: "teacher",
         password: "123456",
       });
 
-      console.log(user);
+      if (user.type != userType) {
+        navigate("/");
+      }
     }
-  }, []);
+  }, [user]);
 
   return token ? <Outlet /> : <Navigate to="/login" />;
 };

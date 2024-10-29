@@ -5,6 +5,8 @@ import Input from "../components/Input";
 import { useAtom } from "jotai";
 import { apiStore } from "../store/apiStore";
 import { userStore } from "../store/userStore";
+import Button from "../components/Button";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -27,7 +29,6 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     if (!validateForm()) {
       return;
     }
@@ -70,28 +71,24 @@ const LoginPage = () => {
 
   return (
     <div className="h-screen flex flex-col justify-center items-center bg-gray-100">
-      <div className="p-8 bg-white shadow-lg rounded-lg">
+      <div className="w-96 p-10 bg-white shadow-lg rounded-lg">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Login
         </h1>
         <form onSubmit={handleLogin} className="flex flex-col gap-2 my-5">
-          <Input
-            type="email"
-            placeholder="Enter Email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            type="password"
-            placeholder="Enter Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button
-            type="submit"
-            className="mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-md hover:shadow-lg w-full"
-          >
-            Login
-          </button>
+          <Input type="email" label="Email" onChange={setEmail} />
+          <Input type="password" label="Password" onChange={setPassword} />
+          <Button name="Login" onClick={null} />
         </form>
+        <li className="list-none text-center mt-4 text-gray-600">
+          Don't have an account?{" "}
+          <Link
+            to="/signin"
+            className="text-blue-600 hover:text-blue-800 font-medium"
+          >
+            Sign In
+          </Link>
+        </li>
       </div>
     </div>
   );
