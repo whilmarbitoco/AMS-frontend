@@ -9,7 +9,7 @@ const ProtectedRoute = () => {
   const [user, setUser] = useAtom(userStore);
 
   useEffect(() => {
-    if (token) {
+    if (token && !user) {
       setUser({
         name: "John Auth",
         email: "john@doe.com",

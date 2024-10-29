@@ -2,10 +2,15 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../provider/AuthProvider";
 import Input from "../components/Input";
+import { useAtom } from "jotai";
+import { apiStore } from "../store/apiStore";
+import { userStore } from "../store/userStore";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [token, setToken] = useAuth();
+  const [api, setApi] = useAtom(apiStore);
+  const [user, setUser] = useAtom(userStore);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,14 +33,34 @@ const LoginPage = () => {
     }
 
     try {
-      // TODO: Replace with actual API call
-      setToken("Token from login");
+      const data = {
+        email,
+        password,
+      };
+
+      const res = await fetch(`${api}/user/login`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        alert("Login Failed");
+      }
+
+      const resData = await res.json();
+      console.log(resData.user);
+
+      setUser(resData.user);
+      setToken(resData.token);
       navigate("/dashboard");
     } catch (error) {
       console.error("Login failed:", error);
     }
   };
-  const submitHandler = () => {};
 
   useEffect(() => {
     if (token) {
