@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import SigninPage from "./pages/SigninPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import { AuthProvider } from "./provider/AuthProvider";
+import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route element={<DashboardPage />} path="/dashboard" />
           </Route>
+          <Route element={<AdminDashboardPage />} path="/admin/dashboard" />
           <Route element={<LoginPage />} path="/login" />
           <Route element={<SigninPage />} path="/signin" />
         </Routes>
