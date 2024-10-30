@@ -5,6 +5,8 @@ import SigninPage from "./pages/SigninPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import { AuthProvider } from "./provider/AuthProvider";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
+import ProfilePage from "./pages/ProfilePage";
+import StudentPage from "./pages/StudentPage";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Routes>
           <Route element={<ProtectedRoute userType="teacher" />}>
             <Route element={<DashboardPage />} path="/dashboard" />
+            <Route element={<ProfilePage />} path="/dashboard/profile" />
+            <Route element={<StudentPage />} path="/dashboard/student" />
           </Route>
 
           <Route element={<ProtectedRoute userType="admin" />}>
