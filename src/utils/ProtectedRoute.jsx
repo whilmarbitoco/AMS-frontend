@@ -12,25 +12,51 @@ const ProtectedRoute = ({ userType }) => {
   const [api, setApi] = useAtom(apiStore);
 
   useEffect(() => {
-    if (token && Object.keys(user).length === 0) {
-      fetch(`${api}/user/verify`, {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          auth: token,
-        },
-      })
-        .then((data) => data.json())
-        .then((data) => {
-          setUser(data);
-        });
-    } else if (user.type != userType) {
-      navigate("/");
-    }
-  }, [user]);
+    const verifyUser = async () => {
+      if (token && Object.keys(user).length === 0) {
+        try {
+          const response = await fetch(`${api}/user/verify`, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+              auth: token,
+            },
+          });
 
-  return token ? <Outlet /> : <Navigate to="/login" />;
+          if (!response.ok) {
+            throw new Error("Verification failed");
+          }
+
+          const data = await response.json();
+          setUser(data);
+
+          if (data.type !== userType) {
+            navigate("/");
+          }
+        } catch (error) {
+          console.error("Error verifying user:", error);
+          setToken(null);
+          localStorage.removeItem("token");
+          navigate("/login");
+        }
+      } else if (user.type !== userType) {
+        navigate("/");
+      }
+    };
+
+    verifyUser();
+  }, [token, user, userType, api, navigate, setUser, setToken]);
+
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
+
+  if (Object.keys(user).length === 0) {
+    return null; // Show nothing while verifying
+  }
+
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
