@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import { apiStore } from "../store/apiStore";
 import { useAuth } from "../provider/AuthProvider";
 
-const CreateClass = ({ toggle }) => {
+const CreateClass = ({ toggle, update }) => {
   const [subject, setSubject] = useState("");
   const [strand, setStrand] = useState("");
   const [timeIn, setTimeIn] = useState("");
@@ -14,6 +14,12 @@ const CreateClass = ({ toggle }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!subject || !strand || !timeIn) {
+      alert("Please fill in all fields");
+      return;
+    }
+
     const data = { subject, strand, timeIn };
 
     const res = await fetch(`${api}/class`, {
@@ -26,10 +32,18 @@ const CreateClass = ({ toggle }) => {
       body: JSON.stringify(data),
     });
 
-    const resData = await res.json();
+    if (!res.ok) {
+      const resData = await res.json();
+      console.log(resData);
+      return;
+    }
 
+    const resData = await res.json();
     console.log(resData);
+    toggle();
+    update();
   };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
       <form className="bg-white rounded-lg shadow-lg p-8 w-96 space-y-4">

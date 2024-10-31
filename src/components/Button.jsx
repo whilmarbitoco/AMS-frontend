@@ -1,5 +1,3 @@
-import React from "react";
-
 const Button = ({ type = "primary", name, onClick }) => {
   const getButtonColor = () => {
     switch (type) {
@@ -9,6 +7,8 @@ const Button = ({ type = "primary", name, onClick }) => {
         return "bg-gray-600 hover:bg-gray-700";
       case "delete":
         return "bg-red-600 hover:bg-red-700";
+      case "success":
+        return "bg-green-600 hover:bg-green-700";
       default:
         return "bg-blue-600 hover:bg-blue-700";
     }

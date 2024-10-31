@@ -1,45 +1,42 @@
+import { useLocation, useParams } from "react-router-dom";
 import TeacherWrapper from "../components/TeacherWrapper";
-import ClassTable from "../components/ClassTable";
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { apiStore } from "../store/apiStore";
-import { useAuth } from "../provider/AuthProvider";
-import Button from "../components/Button";
-import CreateClass from "../components/CreateClass";
 
 const ClassPage = () => {
-  const [clss, setClss] = useState([]);
+  const { id } = useParams();
+  const [className, setClassName] = useState("");
   const [api, setApi] = useAtom(apiStore);
-  const [token, setToken] = useAuth();
-  const [showCreate, setShowCreate] = useState(false);
+  const location = useLocation();
 
-  useEffect(() => {
-    fetch(`${api}/class/current`, {
-      method: "GET",
+  const fetchData = async () => {
+    const res = await fetch(`${api}/user/login`, {
+      method: "POST",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        auth: token,
       },
-    })
-      .then((res) => res.json())
-      .then((data) => setClss(data));
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      const resData = await res.json();
+      console.log("Error: " + resData);
+      return;
+    }
+    const resData = await res.json();
+    console.log(resData);
+  };
+
+  useEffect(() => {
+    setClassName(location.state.d.subject);
+    fetchData();
   }, []);
 
   return (
-    <TeacherWrapper page="Classes">
-      <div className="w-full p-4">
-        <div className="w-[8rem]">
-          <Button
-            name="Create Class"
-            onClick={() => setShowCreate(!showCreate)}
-          />
-        </div>
-        <ClassTable data={clss} />
-        {showCreate && (
-          <CreateClass toggle={() => setShowCreate(!showCreate)} />
-        )}
-      </div>
+    <TeacherWrapper page={`Class ${className}`}>
+      <h1>Hello {id}</h1>
     </TeacherWrapper>
   );
 };

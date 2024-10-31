@@ -6,6 +6,7 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import { AuthProvider } from "./provider/AuthProvider";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import ProfilePage from "./pages/ProfilePage";
+import ClassesPage from "./pages/ClassesPage";
 import ClassPage from "./pages/ClassPage";
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
           <Route element={<ProtectedRoute userType="teacher" />}>
             <Route element={<DashboardPage />} path="/dashboard" />
             <Route element={<ProfilePage />} path="/dashboard/profile" />
-            <Route element={<ClassPage />} path="/dashboard/class" />
+            <Route element={<ClassesPage />} path="/dashboard/classes" />
+            <Route element={<ClassPage />} path="/dashboard/class/:id" />
           </Route>
 
           <Route element={<ProtectedRoute userType="admin" />}>
