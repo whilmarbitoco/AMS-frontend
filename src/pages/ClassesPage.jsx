@@ -13,17 +13,22 @@ const ClassesPage = () => {
   const [token, setToken] = useAuth();
   const [showCreate, setShowCreate] = useState(false);
 
-  const fetchData = () => {
-    fetch(`${api}/class/current`, {
+  const fetchData = async () => {
+    const res = await fetch(`${api}/class/current`, {
       method: "GET",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
         auth: token,
       },
-    })
-      .then((res) => res.json())
-      .then((data) => setClss(data));
+    });
+
+    if (!res.ok) {
+      console.log("Error: " + JSON.stringify(res));
+      return;
+    }
+    const resData = await res.json();
+    setClss(resData);
   };
 
   useEffect(() => {
@@ -32,7 +37,7 @@ const ClassesPage = () => {
 
   return (
     <TeacherWrapper page="Classes">
-      <div className="w-full p-4">
+      <div className="m-5 p-3 bg-white rounded-lg">
         <div className="w-[8rem]">
           <Button
             name="Create Class"

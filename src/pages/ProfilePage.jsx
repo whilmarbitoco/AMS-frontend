@@ -15,8 +15,8 @@ const ProfilePage = () => {
 
   const [firstname, setFirstname] = useState("N/A");
   const [lastname, setLastname] = useState("N/A");
-  const [username, setUsername] = useState("N/A");
-  const [email, setEmail] = useState("N/A");
+  const [username, setUsername] = useState(user.username);
+  const [email, setEmail] = useState(user.email);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -27,27 +27,21 @@ const ProfilePage = () => {
       lastname,
     };
 
-    console.log(data);
+    const res = await fetch(`${api}/teacher/`, {
+      method: "PUT",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        auth: token,
+      },
+      body: JSON.stringify(data),
+    });
 
-    try {
-      const res = await fetch(`${api}/teacher/`, {
-        method: "PUT",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          auth: token,
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!res.ok) {
-        console.log(res);
-      }
-
-      console.log(res);
-    } catch (error) {
-      console.error("Error updating profile: ", error);
+    const resData = await res.json();
+    if (!res.ok) {
+      console.log(resData);
     }
+    console.log(resData);
   };
 
   useEffect(() => {

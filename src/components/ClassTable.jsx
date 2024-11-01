@@ -34,11 +34,12 @@ const ClassTable = ({ data }) => {
               <td className="p-3">{d.strand}</td>
               <td className="p-3">{d.timeIn}</td>
               <td className="p-3 w-32">
-                <Button
-                  name="Manage"
-                  type="success"
+                <button
+                  className="text-green-500 hover:text-blue-700 mr-2"
                   onClick={() => handleClick(d)}
-                />
+                >
+                  Manage
+                </button>
               </td>
             </tr>
           ))}
