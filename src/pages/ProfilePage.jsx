@@ -2,11 +2,11 @@ import TeacherWrapper from "../components/TeacherWrapper";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { useAtom } from "jotai";
-
 import { useEffect, useState } from "react";
 import { apiStore } from "../store/apiStore";
 import { useAuth } from "../provider/AuthProvider";
 import { userStore } from "../store/userStore";
+import { toast } from "sonner";
 
 const ProfilePage = () => {
   const [user, setUser] = useAtom(userStore);
@@ -39,9 +39,10 @@ const ProfilePage = () => {
 
     const resData = await res.json();
     if (!res.ok) {
-      console.log(resData);
+      toast.error(resData.message);
+      return;
     }
-    console.log(resData);
+    toast.success(resData.message);
   };
 
   useEffect(() => {

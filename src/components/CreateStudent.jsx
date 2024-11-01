@@ -1,10 +1,9 @@
-import Input from "./Input";
-import Button from "./Button";
 import StudentTable from "./StudentTable";
 import { useAtom } from "jotai";
 import { apiStore } from "../store/apiStore";
 import { useEffect, useState } from "react";
 import { useAuth } from "../provider/AuthProvider";
+import { toast } from "sonner";
 
 const CreateStudent = ({ toggle, update, classId }) => {
   const [api, setApi] = useAtom(apiStore);
@@ -19,12 +18,11 @@ const CreateStudent = ({ toggle, update, classId }) => {
         "Content-Type": "application/json",
       },
     });
-
+    const resData = await res.json();
     if (!res.ok) {
-      console.log("Error: " + JSON.stringify(res));
+      toast.error(resData.message);
       return;
     }
-    const resData = await res.json();
     setStudents(resData);
   };
 
@@ -39,14 +37,13 @@ const CreateStudent = ({ toggle, update, classId }) => {
       body: JSON.stringify({ studentID: id }),
     });
 
+    const resData = await res.json();
     if (!res.ok) {
-      console.log(res);
+      toast.error(resData.message);
       return;
     }
 
-    const resData = await res.json();
-    console.log(resData);
-
+    toast.success(resData.message);
     update();
   };
 
@@ -56,7 +53,7 @@ const CreateStudent = ({ toggle, update, classId }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-1/2 h-[90vh] overflow-y-auto">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-1/2 h-[90vh]">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-800">Add New Student</h2>
           <button

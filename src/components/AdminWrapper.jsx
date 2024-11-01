@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import NavBar from "./NavBar";
+import NavBar from "./admin/NavBar";
 import { userStore } from "../store/userStore";
 import { useAtom } from "jotai";
 import { Link } from "react-router-dom";
 import { Toaster } from "sonner";
 
-const TeacherWrapper = ({ page, children }) => {
+const AdminWrapper = ({ page, children }) => {
   const [user, setUser] = useAtom(userStore);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -54,7 +54,7 @@ const TeacherWrapper = ({ page, children }) => {
             >
               <li>
                 <Link
-                  to="/dashboard/profile"
+                  to="/admin/profile"
                   className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Profile
@@ -77,4 +77,4 @@ const TeacherWrapper = ({ page, children }) => {
   );
 };
 
-export default TeacherWrapper;
+export default AdminWrapper;

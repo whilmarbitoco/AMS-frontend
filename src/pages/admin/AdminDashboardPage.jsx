@@ -1,5 +1,7 @@
+import AdminWrapper from "../../components/AdminWrapper";
+
 const AdminDashboardPage = () => {
-  return <div>AdminDashboardPage</div>;
+  return <AdminWrapper page="Dashboard">Hello</AdminWrapper>;
 };
 
 export default AdminDashboardPage;

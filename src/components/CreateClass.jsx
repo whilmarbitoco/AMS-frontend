@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAtom } from "jotai";
 import { apiStore } from "../store/apiStore";
 import { useAuth } from "../provider/AuthProvider";
+import { toast } from "sonner";
 
 const CreateClass = ({ toggle, update }) => {
   const [subject, setSubject] = useState("");
@@ -16,7 +17,7 @@ const CreateClass = ({ toggle, update }) => {
     e.preventDefault();
 
     if (!subject || !strand || !timeIn) {
-      alert("Please fill in all fields");
+      toast.error("Please fill in all fields");
       return;
     }
 
@@ -34,12 +35,12 @@ const CreateClass = ({ toggle, update }) => {
 
     if (!res.ok) {
       const resData = await res.json();
-      console.log(resData);
+      toast.error(resData.message);
       return;
     }
 
     const resData = await res.json();
-    console.log(resData);
+    toast.success("Class created successfully");
     toggle();
     update();
   };

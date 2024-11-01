@@ -6,6 +6,7 @@ import { useAtom } from "jotai";
 import { apiStore } from "../store/apiStore";
 import axios from "axios";
 import Button from "../components/Button";
+import { Toaster, toast } from "sonner";
 
 const SigninPage = () => {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ const SigninPage = () => {
     }
 
     const data = {
+      type: "admin",
       email,
       username,
       password,
@@ -53,9 +55,12 @@ const SigninPage = () => {
       body: JSON.stringify(data),
     });
 
-    if (res.ok) {
-      alert("User Created");
+    if (!res.ok) {
+      toast.error("Signin Failed");
+      return;
     }
+    toast.success("Signin Successful");
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -66,6 +71,7 @@ const SigninPage = () => {
 
   return (
     <div className="h-screen flex flex-col justify-center items-center bg-gray-100">
+      <Toaster position="top-right" richColors />
       <div className="w-96 p-8 bg-white shadow-lg rounded-lg">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Sign In

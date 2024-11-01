@@ -7,6 +7,7 @@ import Button from "../components/Button";
 import StudentTable from "../components/StudentTable";
 import { useAuth } from "../provider/AuthProvider";
 import CreateStudent from "../components/CreateStudent";
+import { toast } from "sonner";
 
 const ClassPage = () => {
   const { id } = useParams();
@@ -47,10 +48,10 @@ const ClassPage = () => {
     const resData = await res.json();
 
     if (!res.ok) {
-      console.log(resData);
+      toast.error(resData.message);
       return;
     }
-    console.log(resData);
+    toast.success(resData.message);
     fetchData();
   };
 

@@ -8,6 +8,8 @@ import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import ProfilePage from "./pages/ProfilePage";
 import ClassesPage from "./pages/ClassesPage";
 import ClassPage from "./pages/ClassPage";
+import AdminProfile from "./pages/admin/AdminProfile";
+import AdminStudent from "./pages/admin/AdminStudent";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
 
           <Route element={<ProtectedRoute userType="admin" />}>
             <Route element={<AdminDashboardPage />} path="/admin/dashboard" />
+            <Route element={<AdminProfile />} path="/admin/profile" />
+            <Route element={<AdminStudent />} path="/admin/students" />
           </Route>
 
           <Route element={<LoginPage />} path="/login" />

@@ -7,6 +7,7 @@ import { apiStore } from "../store/apiStore";
 import { userStore } from "../store/userStore";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
+import { Toaster, toast } from "sonner";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const LoginPage = () => {
     if (!email || email.length < 3) {
       return false;
     }
-    if (!password || password.length < 6) {
+    if (!password || password.length < 3) {
       return false;
     }
     return true;
@@ -30,6 +31,7 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
+      toast.error("Invalid form");
       return;
     }
 
@@ -49,15 +51,20 @@ const LoginPage = () => {
       });
 
       if (!res.ok) {
-        alert("Login Failed");
+        toast.error("Login Failed");
+        return;
       }
 
       const resData = await res.json();
-      console.log(resData.user);
+      toast.success("Login Successful");
 
       setUser(resData.user);
       setToken(resData.token);
-      navigate("/dashboard");
+      if (resData.user.type === "admin") {
+        navigate("/admin/dashboard");
+      } else if (resData.user.type === "teacher") {
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -71,6 +78,7 @@ const LoginPage = () => {
 
   return (
     <div className="h-screen flex flex-col justify-center items-center bg-gray-100">
+      <Toaster position="top-right" richColors />
       <div className="w-96 p-10 bg-white shadow-lg rounded-lg">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Login
