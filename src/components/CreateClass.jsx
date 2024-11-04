@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAtom } from "jotai";
 import { apiStore } from "../store/apiStore";
 import { useAuth } from "../provider/AuthProvider";
+import Choices from "./Choices";
 import { toast } from "sonner";
 
 const CreateClass = ({ toggle, update }) => {
@@ -12,6 +13,7 @@ const CreateClass = ({ toggle, update }) => {
   const [timeIn, setTimeIn] = useState("");
   const [api, setApi] = useAtom(apiStore);
   const [token, setToken] = useAuth();
+  const strands = ["STEM", "HUMSS", "ABM", "GAS"];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,7 +74,12 @@ const CreateClass = ({ toggle, update }) => {
           </button>
         </div>
         <Input type="text" label="Subject" onChange={setSubject} />
-        <Input type="text" label="Strand" onChange={setStrand} />
+        <Choices
+          options={strands}
+          type="text"
+          label="Strand"
+          onChange={setStrand}
+        />
         <Input type="text" label="Time In" onChange={setTimeIn} />
         <div className="flex justify-end mt-6">
           <Button name="Create" onClick={handleSubmit} />

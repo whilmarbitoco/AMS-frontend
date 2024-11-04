@@ -1,21 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import Button from "./Button";
-
-const ClassTable = ({ data, attendance = false }) => {
-  const navigate = useNavigate();
-
-  const handleClick = (d) => {
-    navigate(`/dashboard/class/${d.id}`, {
-      state: { d },
-    });
-  };
-
-  const handleAttendance = (d) => {
-    navigate(`/dashboard/attendance/${d.id}`, {
-      state: { d },
-    });
-  };
-
+const AttendanceTable = ({ data }) => {
   return (
     <div className="overflow-scroll max-h-[75vh]">
       <table className="w-full mt-5 mb-5 bg-white rounded-lg">
@@ -40,21 +23,12 @@ const ClassTable = ({ data, attendance = false }) => {
               <td className="p-3">{d.strand}</td>
               <td className="p-3">{d.timeIn}</td>
               <td className="p-3 w-32">
-                {attendance ? (
-                  <button
-                    className="text-yellow-500 hover:text-blue-700 mr-2"
-                    onClick={() => handleAttendance(d)}
-                  >
-                    View
-                  </button>
-                ) : (
-                  <button
-                    className="text-green-500 hover:text-blue-700 mr-2"
-                    onClick={() => handleClick(d)}
-                  >
-                    Manage
-                  </button>
-                )}
+                <button
+                  className="text-green-500 hover:text-blue-700 mr-2"
+                  onClick={() => handleClick(d)}
+                >
+                  Manage
+                </button>
               </td>
             </tr>
           ))}
@@ -64,4 +38,4 @@ const ClassTable = ({ data, attendance = false }) => {
   );
 };
 
-export default ClassTable;
+export default AttendanceTable;

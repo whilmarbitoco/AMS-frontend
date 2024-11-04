@@ -1,6 +1,12 @@
 import Button from "./Button";
 
-const StudentTable = ({ data, handleAdd, handleRemove, add = false }) => {
+const StudentTable = ({
+  data,
+  handleAdd,
+  handleGenerate,
+  handleRemove,
+  add = false,
+}) => {
   return (
     <div className="overflow-scroll max-h-[75vh]">
       <table className="w-full mt-5 mb-5 bg-white rounded-lg">
@@ -33,12 +39,21 @@ const StudentTable = ({ data, handleAdd, handleRemove, add = false }) => {
                 {add ? (
                   <Button name="Add" onClick={() => handleAdd(student.id)} />
                 ) : (
-                  <button
-                    className="text-red-500 hover:text-red-700"
-                    onClick={() => handleRemove(student.id)}
-                  >
-                    Remove
-                  </button>
+                  <div className="flex justify-between items-center gap-2">
+                    <button
+                      className="text-red-500 hover:text-red-700"
+                      onClick={() => handleRemove(student.id)}
+                    >
+                      Remove
+                    </button>
+
+                    <button
+                      className="text-green-500 hover:text-green-700"
+                      onClick={() => handleGenerate(student)}
+                    >
+                      Generate
+                    </button>
+                  </div>
                 )}
               </td>
             </tr>

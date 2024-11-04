@@ -5,7 +5,7 @@ const NavBar = () => {
     <ul className="">
       <NavLink name="Dashboard" to="/dashboard" />
       <NavLink name="Classes" to="/dashboard/classes" />
-      <NavLink name="Attendance" to={null} />
+      <NavLink name="Attendance" to="/dashboard/attendance" />
     </ul>
   );
 };

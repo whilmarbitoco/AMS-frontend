@@ -40,7 +40,6 @@ const SigninPage = () => {
     }
 
     const data = {
-      type: "admin",
       email,
       username,
       password,

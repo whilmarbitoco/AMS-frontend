@@ -10,6 +10,9 @@ import ClassesPage from "./pages/ClassesPage";
 import ClassPage from "./pages/ClassPage";
 import AdminProfile from "./pages/admin/AdminProfile";
 import AdminStudent from "./pages/admin/AdminStudent";
+import AttendancePage from "./pages/AttendancePage";
+import ClassAttendancePage from "./pages/ClassAttendancePage";
+import AttendanceNowPage from "./pages/AttendanceNowPae";
 
 function App() {
   return (
@@ -21,6 +24,15 @@ function App() {
             <Route element={<ProfilePage />} path="/dashboard/profile" />
             <Route element={<ClassesPage />} path="/dashboard/classes" />
             <Route element={<ClassPage />} path="/dashboard/class/:id" />
+            <Route element={<AttendancePage />} path="/dashboard/attendance" />
+            <Route
+              element={<ClassAttendancePage />}
+              path="/dashboard/attendance/:id"
+            />
+            <Route
+              element={<AttendanceNowPage />}
+              path="/dashboard/attendance/now"
+            />
           </Route>
 
           <Route element={<ProtectedRoute userType="admin" />}>
