@@ -13,6 +13,7 @@ import AdminStudent from "./pages/admin/AdminStudent";
 import AttendancePage from "./pages/AttendancePage";
 import ClassAttendancePage from "./pages/ClassAttendancePage";
 import AttendanceNowPage from "./pages/AttendanceNowPae";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
 
           <Route element={<LoginPage />} path="/login" />
           <Route element={<SigninPage />} path="/signin" />
+          <Route element={<HomePage />} path="/" />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
