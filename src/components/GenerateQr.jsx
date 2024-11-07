@@ -24,7 +24,7 @@ const GenerateQr = ({ toggle, data }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
       <div className="bg-white rounded-lg shadow-lg p-8">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-center mb-3">
           <h2 className="text-2xl font-bold text-gray-800">Qr Code </h2>
           <button
             className="text-gray-500 hover:text-gray-700"
@@ -47,7 +47,7 @@ const GenerateQr = ({ toggle, data }) => {
             </svg>
           </button>
         </div>
-        <div className="flex items-center flex-col gap-2 w-full">
+        <div className="flex items-center flex-col w-full">
           <QRCode value={qrData} ref={qrCodeRef} />
           <Button name="Download" onClick={handleDownload} />
         </div>

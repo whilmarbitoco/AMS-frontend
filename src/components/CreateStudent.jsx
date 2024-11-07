@@ -10,6 +10,22 @@ const CreateStudent = ({ toggle, update, classId }) => {
   const [students, setStudents] = useState([]);
   const [token, setToken] = useAuth();
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const searchTerm = e.target.value.toLowerCase();
+    if (!searchTerm) {
+      fetchData();
+      return;
+    }
+    const filteredStudents = students.filter(
+      (student) =>
+        student.firstname.toLowerCase().includes(searchTerm) ||
+        student.lastname.toLowerCase().includes(searchTerm) ||
+        student.lrn.includes(searchTerm)
+    );
+    setStudents(filteredStudents);
+  };
+
   const fetchData = async () => {
     const res = await fetch(`${api}/student`, {
       method: "GET",
@@ -76,6 +92,14 @@ const CreateStudent = ({ toggle, update, classId }) => {
               />
             </svg>
           </button>
+        </div>
+        <div className="w-full">
+          <input
+            type="text"
+            placeholder="Search..."
+            className="w-full px-4 mt-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            onChange={handleSearch}
+          />
         </div>
         <StudentTable data={students} add={true} handleAdd={handleAdd} />
       </div>

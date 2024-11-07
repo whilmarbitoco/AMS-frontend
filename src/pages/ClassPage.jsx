@@ -32,9 +32,9 @@ const ClassPage = () => {
     }
     const filteredStudents = students.filter(
       (student) =>
-        student.name.toLowerCase().includes(searchTerm) ||
-        student.lrn.includes(searchTerm) ||
-        student.email.toLowerCase().includes(searchTerm)
+        student.firstname.toLowerCase().includes(searchTerm) ||
+        student.lastname.toLowerCase().includes(searchTerm) ||
+        student.lrn.includes(searchTerm)
     );
     setStudents(filteredStudents);
   };

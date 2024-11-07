@@ -1,7 +1,7 @@
 import { Html5QrcodeScanner, Html5QrcodeScanType } from "html5-qrcode";
 import { useEffect } from "react";
 
-const QrPopup = ({ toggle }) => {
+const QrPopup = ({ toggle, handleAttendance }) => {
   useEffect(() => {
     const qrScanner = new Html5QrcodeScanner(
       "qrcode",
@@ -15,7 +15,7 @@ const QrPopup = ({ toggle }) => {
     );
 
     const success = (res) => {
-      alert(res);
+      handleAttendance(res);
     };
 
     qrScanner.render(success);

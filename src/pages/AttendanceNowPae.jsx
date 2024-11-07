@@ -20,6 +20,31 @@ const AttendanceNowPage = () => {
     setShowQr(!showQr);
   };
 
+  const handleAttendance = async (data) => {
+    const stdnt = JSON.parse(data);
+    console.log(stdnt);
+
+    const res = await fetch(`${api}/attendance/${location.state.id}/present`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        auth: token,
+      },
+      body: JSON.stringify({ studentID: stdnt.id }),
+    });
+
+    const resData = await res.json();
+
+    if (!res.ok) {
+      toast.error(resData.message);
+      console.log(resData.message);
+      return;
+    }
+    fetchData();
+    toast.success(resData.message);
+  };
+
   const fetchData = async () => {
     const res = await fetch(`${api}/attendance/${location.state.id}/now`, {
       method: "GET",
@@ -36,6 +61,7 @@ const AttendanceNowPage = () => {
       toast.error(resData.message);
       return;
     }
+
     setClasses(resData);
   };
 
@@ -49,7 +75,9 @@ const AttendanceNowPage = () => {
           <Button name="QR Scanner" onClick={toggle} />
         </div>
         <StudentAttTable data={classes} />
-        {showQr && <QrPopup toggle={toggle} />}
+        {showQr && (
+          <QrPopup toggle={toggle} handleAttendance={handleAttendance} />
+        )}
       </div>
     </TeacherWrapper>
   );
