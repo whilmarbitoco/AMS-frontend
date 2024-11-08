@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ type, label, onChange, value = null }) => {
+const Input = ({ type, label, onChange, value }) => {
   return (
     <>
       <label

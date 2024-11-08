@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { apiStore } from "../../store/apiStore";
 import { useAtom } from "jotai";
 import { useAuth } from "../../provider/AuthProvider";
+import Choices from "../Choices";
 
 const CreateStudent = ({ toggle, update }) => {
   const [step, setStep] = useState(1);
@@ -18,6 +19,7 @@ const CreateStudent = ({ toggle, update }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const strands = ["STEM", "HUMSS", "ABM", "GAS"];
 
   const handleNext = (e) => {
     e.preventDefault();
@@ -117,10 +119,10 @@ const CreateStudent = ({ toggle, update }) => {
               onChange={setLastname}
             />
             <Input type="text" label="LRN" value={lrn} onChange={setLrn} />
-            <Input
+            <Choices
+              options={strands}
               type="text"
               label="Strand"
-              value={strand}
               onChange={setStrand}
             />
             <div className="flex justify-end mt-6">

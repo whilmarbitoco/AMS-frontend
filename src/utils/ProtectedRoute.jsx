@@ -25,7 +25,9 @@ const ProtectedRoute = ({ userType }) => {
           });
 
           if (!response.ok) {
-            throw new Error("Verification failed");
+            setToken(null);
+            localStorage.removeItem("token");
+            navigate("/login");
           }
 
           const data = await response.json();

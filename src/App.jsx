@@ -14,6 +14,8 @@ import AttendancePage from "./pages/AttendancePage";
 import ClassAttendancePage from "./pages/ClassAttendancePage";
 import AttendanceNowPage from "./pages/AttendanceNowPae";
 import HomePage from "./pages/HomePage";
+import NotAllowed from "./pages/NotAllowed";
+import AdminTeacherPage from "./pages/admin/AdminTeacherPage";
 
 function App() {
   return (
@@ -40,11 +42,13 @@ function App() {
             <Route element={<AdminDashboardPage />} path="/admin/dashboard" />
             <Route element={<AdminProfile />} path="/admin/profile" />
             <Route element={<AdminStudent />} path="/admin/students" />
+            <Route element={<AdminTeacherPage />} path="/admin/teacher" />
           </Route>
 
           <Route element={<LoginPage />} path="/login" />
           <Route element={<SigninPage />} path="/signin" />
           <Route element={<HomePage />} path="/" />
+          <Route element={<NotAllowed />} path="/forbidden" />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

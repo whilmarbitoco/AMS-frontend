@@ -42,7 +42,7 @@ const StudentTable = ({
                   <div className="flex justify-between items-center gap-2">
                     <button
                       className="text-red-500 hover:text-red-700"
-                      onClick={() => handleRemove(student.id)}
+                      onClick={() => handleRemove(student)}
                     >
                       Remove
                     </button>

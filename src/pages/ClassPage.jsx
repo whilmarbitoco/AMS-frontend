@@ -50,7 +50,7 @@ const ClassPage = () => {
         "Content-Type": "application/json",
         auth: token,
       },
-      body: JSON.stringify({ studentID: uid }),
+      body: JSON.stringify({ studentID: uid.id }),
     });
 
     const resData = await res.json();

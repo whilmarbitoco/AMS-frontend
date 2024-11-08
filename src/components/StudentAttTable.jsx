@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 
 const StudentAttTable = ({ data }) => {
-  const [students, setStudents] = useState(data || []);
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    setStudents(data);
+  }, []);
 
   return (
     <div className="overflow-scroll max-h-[75vh]">

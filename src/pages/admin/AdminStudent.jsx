@@ -5,14 +5,33 @@ import { useAtom } from "jotai";
 import { apiStore } from "../../store/apiStore";
 import Button from "../../components/Button";
 import CreateStudent from "../../components/admin/CreateStudent";
+import { useAuth } from "../../provider/AuthProvider";
+import { toast } from "sonner";
 
 const AdminStudent = () => {
   const [students, setStudents] = useState([]);
   const [api, setApi] = useAtom(apiStore);
   const [showCreate, setShowCreate] = useState(false);
+  const [token, setToken] = useAuth();
 
   const toggle = () => {
     setShowCreate(!showCreate);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const searchTerm = e.target.value.toLowerCase();
+    if (!searchTerm) {
+      fetchData();
+      return;
+    }
+    const filteredStudents = students.filter(
+      (student) =>
+        student.firstname.toLowerCase().includes(searchTerm) ||
+        student.lastname.toLowerCase().includes(searchTerm) ||
+        student.lrn.includes(searchTerm)
+    );
+    setStudents(filteredStudents);
   };
 
   const fetchData = async () => {
@@ -34,6 +53,26 @@ const AdminStudent = () => {
     setStudents(resData);
   };
 
+  const handleRemove = async (student) => {
+    const res = await fetch(`${api}/student/${student.id}`, {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        auth: token,
+      },
+    });
+
+    const resData = await res.json();
+
+    if (!res.ok) {
+      toast.error(resData.message);
+      return;
+    }
+    toast.success(resData.message);
+    fetchData();
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -48,10 +87,11 @@ const AdminStudent = () => {
               type="text"
               placeholder="Search..."
               className="px-4 mt-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={handleSearch}
             />
           </div>
         </div>
-        <StudentTable data={students} />
+        <StudentTable data={students} handleRemove={handleRemove} />
         {showCreate && <CreateStudent toggle={toggle} update={fetchData} />}
       </div>
     </AdminWrapper>
