@@ -7,15 +7,23 @@ import Button from "../../components/Button";
 import CreateStudent from "../../components/admin/CreateStudent";
 import { useAuth } from "../../provider/AuthProvider";
 import { toast } from "sonner";
+import EditStudent from "../../components/admin/EditStudent";
 
 const AdminStudent = () => {
   const [students, setStudents] = useState([]);
   const [api, setApi] = useAtom(apiStore);
   const [showCreate, setShowCreate] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+
   const [token, setToken] = useAuth();
+  const [edit, setEdit] = useState({});
 
   const toggle = () => {
     setShowCreate(!showCreate);
+  };
+
+  const toggleEdit = () => {
+    setShowEdit(!showEdit);
   };
 
   const handleSearch = (e) => {
@@ -48,9 +56,16 @@ const AdminStudent = () => {
       return;
     }
     const resData = await res.json();
-    console.log(resData);
+    // console.log(resData);
 
     setStudents(resData);
+  };
+
+  const handleEdit = (stdnt) => {
+    console.log(stdnt);
+
+    setEdit(stdnt);
+    toggleEdit();
   };
 
   const handleRemove = async (student) => {
@@ -91,7 +106,15 @@ const AdminStudent = () => {
             />
           </div>
         </div>
-        <StudentTable data={students} handleRemove={handleRemove} />
+        <StudentTable
+          data={students}
+          admin={true}
+          handleEdit={handleEdit}
+          handleRemove={handleRemove}
+        />
+        {showEdit && (
+          <EditStudent student={edit} toggle={toggleEdit} update={fetchData} />
+        )}
         {showCreate && <CreateStudent toggle={toggle} update={fetchData} />}
       </div>
     </AdminWrapper>

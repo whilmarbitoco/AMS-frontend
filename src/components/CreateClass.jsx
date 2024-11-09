@@ -19,10 +19,12 @@ const CreateClass = ({ toggle, update }) => {
     "ABM 11",
     "GAS-A 11",
     "Agri-Crop 11",
+    "HUMMS-A 11",
     "Cookery 12",
-    "GAS-B 12",
+    "HUMSS-B 12",
     "ABM 12",
-    "GAS-A 12",
+    "GAS 12",
+    "HUMSS-A 12",
     "Agri-Crop 12",
   ];
 

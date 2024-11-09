@@ -5,7 +5,9 @@ const StudentTable = ({
   handleAdd,
   handleGenerate,
   handleRemove,
+  handleEdit,
   add = false,
+  admin = false,
 }) => {
   return (
     <div className="overflow-scroll max-h-[75vh]">
@@ -36,7 +38,23 @@ const StudentTable = ({
               <td className="p-3 border">{student.lrn}</td>
               <td className="p-3 border">{student.strand}</td>
               <td className="p-3 border w-32">
-                {add ? (
+                {admin ? (
+                  <div className="flex justify-between items-center gap-2">
+                    <button
+                      className="text-red-500 hover:text-red-700"
+                      onClick={() => handleRemove(student)}
+                    >
+                      Remove
+                    </button>
+
+                    <button
+                      className="text-green-500 hover:text-green-700"
+                      onClick={() => handleEdit(student)}
+                    >
+                      Edit
+                    </button>
+                  </div>
+                ) : add ? (
                   <Button name="Add" onClick={() => handleAdd(student.id)} />
                 ) : (
                   <div className="flex justify-between items-center gap-2">

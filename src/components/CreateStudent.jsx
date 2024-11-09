@@ -69,7 +69,7 @@ const CreateStudent = ({ toggle, update, classId }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-1/2 h-[90vh]">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-1/2 h-[90vh] overflow-hidden">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-800">Add New Student</h2>
           <button
