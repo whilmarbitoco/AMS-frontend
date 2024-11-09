@@ -4,7 +4,7 @@ import Button from "../../components/Button";
 import AddAdmin from "../../components/admin/AddAdmin";
 
 const AdminProfile = () => {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   const toggle = () => {
     setShow(!show);

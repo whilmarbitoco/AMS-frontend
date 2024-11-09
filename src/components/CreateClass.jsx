@@ -13,7 +13,18 @@ const CreateClass = ({ toggle, update }) => {
   const [timeIn, setTimeIn] = useState("");
   const [api, setApi] = useAtom(apiStore);
   const [token, setToken] = useAuth();
-  const strands = ["STEM", "HUMSS", "ABM", "GAS"];
+  const strands = [
+    "Cookery 11",
+    "GAS-B 11",
+    "ABM 11",
+    "GAS-A 11",
+    "Agri-Crop 11",
+    "Cookery 12",
+    "GAS-B 12",
+    "ABM 12",
+    "GAS-A 12",
+    "Agri-Crop 12",
+  ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
