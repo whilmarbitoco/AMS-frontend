@@ -5,7 +5,7 @@ import { FaAddressBook } from "react-icons/fa";
 
 const NavBar = () => {
   return (
-    <ul className="">
+    <ul className="fixed lg:relative w-[50%] lg:w-full h-screen z-40 bg-blue-600 flex flex-col px-4">
       <NavLink
         name="Dashboard"
         icons={<MdSpaceDashboard className="text-2xl" />}

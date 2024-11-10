@@ -34,7 +34,7 @@ const StudentTable = ({
               key={index}
               className="border-b border-gray-200 hover:bg-gray-50"
             >
-              <td className="p-3 border">{`${student.firstname} ${student.lastname}`}</td>
+              <td className="p-3 border">{`${student.lastname}, ${student.firstname} `}</td>
               <td className="p-3 border">{student.lrn}</td>
               <td className="p-3 border">{student.strand}</td>
               <td className="p-3 border w-32">

@@ -122,29 +122,37 @@ const ClassPage = () => {
   return (
     <TeacherWrapper page={`Class ${className}`}>
       <div className="m-5 p-3 bg-white rounded-lg">
-        <div className="flex items-center justify-between gap-2 mb-4">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
+          {/* Left Section: Add Student Button and Search Input */}
+          <div className="flex flex-col md:flex-row items-center gap-2 w-full md:w-auto">
             <Button
               name="Add Student"
               onClick={() => setShowStudent(!showStudent)}
+              className="w-full md:w-auto"
             />
             <input
               type="text"
               placeholder="Search..."
-              className="px-4 mt-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full md:w-auto px-4 py-2 mt-3 md:mt-0 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={handleSearch}
             />
           </div>
-          <div>
+
+          {/* Right Section: Attendance Button */}
+          <div className="w-full md:w-auto flex justify-end md:justify-start">
             <Button name="Attendance" onClick={() => handleAttendance(id)} />
           </div>
         </div>
+
+        {/* Student Table */}
         <StudentTable
           data={students}
           add={false}
           handleRemove={handleRemove}
           handleGenerate={handleGenerate}
         />
+
+        {/* Create Student Form */}
         {showStudent && (
           <CreateStudent
             classId={id}
@@ -153,6 +161,7 @@ const ClassPage = () => {
           />
         )}
       </div>
+
       {showQr && <GenerateQr toggle={toggle} data={qr} />}
     </TeacherWrapper>
   );

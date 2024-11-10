@@ -31,7 +31,7 @@ const StudentAttTable = ({ data }) => {
               key={index}
               className="border-b border-gray-200 hover:bg-gray-50"
             >
-              <td className="p-3 ">{`${student.Student.firstname} ${student.Student.lastname}`}</td>
+              <td className="p-3 ">{`${student.Student.lastname}, ${student.Student.firstname}`}</td>
               <td className="p-3 ">{student.Student.lrn}</td>
               <td className="p-3 ">{student.Student.strand}</td>
               <td className="p-3 ">{student.date}</td>

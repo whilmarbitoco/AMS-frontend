@@ -18,11 +18,11 @@ const AttendanceNowPage = () => {
 
   const toggle = () => {
     setShowQr(!showQr);
+    console.log("toggled");
   };
 
   const handleAttendance = async (data) => {
     const stdnt = JSON.parse(data);
-    console.log(stdnt);
 
     const res = await fetch(`${api}/attendance/${location.state.id}/present`, {
       method: "POST",
@@ -41,8 +41,10 @@ const AttendanceNowPage = () => {
       console.log(resData.message);
       return;
     }
-    fetchData();
+    // fetchData();
     toast.success(resData.message);
+
+    fetchData();
   };
 
   const fetchData = async () => {
