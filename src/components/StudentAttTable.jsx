@@ -34,7 +34,7 @@ const StudentAttTable = ({ data }) => {
               <td className="p-3 ">{`${student.Student.lastname}, ${student.Student.firstname}`}</td>
               <td className="p-3 ">{student.Student.lrn}</td>
               <td className="p-3 ">{student.Student.strand}</td>
-              <td className="p-3 ">{student.date}</td>
+              <td className="p-3 ">{student.formattedDate}</td>
               <td className="p-3  w-32">
                 {student.status === "Present" ? (
                   <span className="bg-green-500 p-1 px-2 text-white mr-2 rounded-lg">

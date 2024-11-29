@@ -32,6 +32,8 @@ const ClassAttendancePage = () => {
       toast.error(resData.message);
       return;
     }
+    console.log(resData);
+
     setClasses(resData);
     setReset(false);
   };
@@ -39,7 +41,7 @@ const ClassAttendancePage = () => {
   const handleFilter = (e) => {
     const date = e.target.value;
 
-    setClasses(classes.filter((cls) => cls.date === date));
+    setClasses(classes.filter((cls) => cls.formattedDate === date));
     setReset(true);
   };
 

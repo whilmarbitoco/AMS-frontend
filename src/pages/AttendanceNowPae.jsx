@@ -41,9 +41,8 @@ const AttendanceNowPage = () => {
       console.log(resData.message);
       return;
     }
-    // fetchData();
-    toast.success(resData.message);
 
+    toast.success(resData.message);
     fetchData();
   };
 

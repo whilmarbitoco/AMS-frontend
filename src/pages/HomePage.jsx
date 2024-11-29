@@ -13,7 +13,7 @@ const HomePage = () => {
       <div className="relative z-10">
         <div className="flex items-center justify-between py-2 px-4">
           <h1 className="text-3xl text-white font-extrabold tracking-wide">
-            AMHS
+            AMS
           </h1>
           <Link
             to="/login"
