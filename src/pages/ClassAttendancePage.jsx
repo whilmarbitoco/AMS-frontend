@@ -44,19 +44,46 @@ const ClassAttendancePage = () => {
     setClasses(classes.filter((cls) => cls.formattedDate === date));
     setReset(true);
   };
+  const handleExport = async () => {
+    try {
+      const response = await fetch(`${api}/attendance/export/${id}`, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          auth: token,
+        },
+      });
 
-  const handleExport = () => {
-    const dataToExport = classes.map((c) => {
-      return {
-        name: `${c.Student.firstname} ${c.Student.lastname}`,
-        lrn: c.Student.lrn,
-        strand: c.Student.strand,
-        status: c.status,
-        date: c.date,
-      };
-    });
+      if (!response.ok) {
+        throw new Error("Failed to download file");
+      }
 
-    exportToExcel(dataToExport, "Exports");
+      // Get filename from Content-Disposition header (if set)
+      const contentDisposition = response.headers.get("Content-Disposition");
+      let filename = `Attendance_Report_${id}.xlsx`;
+
+      if (contentDisposition) {
+        const match = contentDisposition.match(/filename="(.+)"/);
+        if (match) {
+          filename = match[1];
+        }
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename; // Use extracted filename or default
+      document.body.appendChild(a);
+      a.click();
+
+      // Cleanup
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error("Error exporting attendance:", error);
+    }
   };
 
   useEffect(() => {
